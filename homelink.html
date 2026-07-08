@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HomeLink — Find Verified Homes. Stay with Confidence.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800;900&family=Noto+Serif:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="preload" href="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=60" as="image">
+<link rel="preload" href="https://images.unsplash.com/photo-1676984029604-748385dcd3ac?auto=format&fit=crop&w=1200&q=60" as="image">
+<link rel="preload" href="https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=1200&q=60" as="image">
+<link rel="preload" href="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=60" as="image">
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="mainNav">
+  <div class="container nav-main">
+    <a href="#" class="logo">
+      <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+        <path d="M12 46L50 14L88 46" stroke="#1E4FD6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M24 40V78C24 80 26 82 28 82H72C74 82 76 80 76 78V40" stroke="#1E4FD6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="30" y="56" width="30" height="20" rx="10" fill="none" stroke="#1E4FD6" stroke-width="7"/>
+        <rect x="46" y="56" width="30" height="20" rx="10" fill="none" stroke="#0C0E14" stroke-width="7"/>
+      </svg>
+      <span><span class="word-home">Home</span><span class="word-link">Link</span></span>
+    </a>
+
+    <nav class="nav-links">
+      <div class="nav-item"><a href="#">Home</a></div>
+      <div class="nav-item"><a href="#featured">Stay types</a></div>
+      <div class="nav-item"><a href="#student">Student</a></div>
+      <div class="nav-item"><a href="#about">About</a></div>
+      <div class="nav-item"><a href="#host">Become a Host</a></div>
+    </nav>
+
+    <div class="nav-search-wrap">
+      <div class="nav-search-bar">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="text" id="navSearchInput" placeholder="Search listings, destinations, hosts..." autocomplete="off">
+        <button class="search-close" aria-label="Close search">✕</button>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <button class="icon-btn search-trigger" title="Search" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" title="Wishlist" aria-label="Wishlist">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="profile-wrap">
+        <button class="account-btn profile-trigger">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <div class="account-avatar">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="4" stroke="white" stroke-width="2"/></svg>
+          </div>
+        </button>
+        <div class="profile-dropdown">
+          <a href="#">Sign In</a>
+          <a href="#">Register</a>
+          <div class="dropdown-divider"></div>
+          <a href="#host">Become a Host</a>
+          <a href="#">Help Centre</a>
+        </div>
+      </div>
+    </div>
+
+    <button class="menu-toggle" aria-label="Menu">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ================= MOBILE NAV ================= -->
+<div class="overlay-blur"></div>
+<div class="mobile-nav">
+  <div class="mobile-nav-head">
+    <a href="#" class="logo">
+      <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+        <path d="M12 46L50 14L88 46" stroke="#1E4FD6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M24 40V78C24 80 26 82 28 82H72C74 82 76 80 76 78V40" stroke="#1E4FD6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="30" y="56" width="30" height="20" rx="10" fill="none" stroke="#1E4FD6" stroke-width="7"/>
+        <rect x="46" y="56" width="30" height="20" rx="10" fill="none" stroke="#0C0E14" stroke-width="7"/>
+      </svg>
+      <span><span class="word-home">Home</span><span class="word-link">Link</span></span>
+    </a>
+    <button class="mobile-nav-close" aria-label="Close menu">✕</button>
+  </div>
+  <div class="mobile-search-bar">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <input type="text" placeholder="Search listings, destinations..." autocomplete="off">
+  </div>
+  <div class="mobile-nav-links">
+    <a href="#">Home</a>
+    <a href="#featured">Stay types</a>
+    <a href="#student">Student</a>
+    <a href="#about">About</a>
+    <a href="#host">Become a Host</a>
+    <a href="#">Sign In</a>
+    <a href="#">Register</a>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="hero">
+  <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=60')"></div>
+  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1676984029604-748385dcd3ac?auto=format&fit=crop&w=1200&q=60')"></div>
+  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=1200&q=60')"></div>
+  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=60')"></div>
+
+  <div class="hero-content container">
+    <div class="hero-text">
+      <span class="hero-tag">🇿🇼 &nbsp;Now live across Zimbabwe · Africa coming next</span>
+      <h1>Find your next home anywhere in Zimbabwe</h1>
+      <p>Verified homes, apartments, hotels and student accommodation — with real listings you can trust, and Africa coming next.</p>
+    </div>
+
+    <div class="search-bar">
+      <div class="search-field">
+        <label>Destination</label>
+        <div class="val">Harare, Zimbabwe</div>
+      </div>
+      <div class="search-field">
+        <label>Property Type</label>
+        <div class="val">Apartment</div>
+      </div>
+      <div class="search-field">
+        <label>Check-in</label>
+        <div class="val muted">Add date</div>
+      </div>
+      <div class="search-field">
+        <label>Check-out</label>
+        <div class="val muted">Add date</div>
+      </div>
+      <div class="search-field">
+        <label>Guests</label>
+        <div class="val muted">Add guests</div>
+      </div>
+      <button class="search-btn" aria-label="Search">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="white" stroke-width="2.4"/><path d="M21 21l-4.3-4.3" stroke="white" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="hero-locations">
+      <span class="active"></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DESTINATIONS ================= -->
+<section class="destinations" id="destinations">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Popular destinations</span>
+      <h2>Explore Zimbabwe, city by city</h2>
+      <p>Verified listings across the country's most-loved cities and tourist towns — with more of Africa opening soon.</p>
+    </div>
+
+    <div class="dest-grid">
+      <div class="dest-card">
+        <span class="verified-pin">✓ Verified</span>
+        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80" alt="Harare">
+        <div class="dest-info"><div class="count">1,240 listings</div><h4>Harare</h4></div>
+      </div>
+      <div class="dest-card">
+        <span class="verified-pin">✓ Verified</span>
+        <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80" alt="Victoria Falls">
+        <div class="dest-info"><div class="count">860 listings</div><h4>Victoria Falls</h4></div>
+      </div>
+      <div class="dest-card">
+        <span class="verified-pin">✓ Verified</span>
+        <img src="https://images.unsplash.com/photo-1580977276076-ae4b8c219b8e?auto=format&fit=crop&w=800&q=80" alt="Bulawayo">
+        <div class="dest-info"><div class="count">610 listings</div><h4>Bulawayo</h4></div>
+      </div>
+      <div class="dest-card">
+        <span class="verified-pin">✓ Verified</span>
+        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80" alt="Nyanga">
+        <div class="dest-info"><div class="count">340 listings</div><h4>Nyanga</h4></div>
+      </div>
+    </div>
+
+    <div class="coming-soon-strip">
+      <div class="label"><span class="tag">COMING NEXT</span> Expanding across Africa</div>
+      <div class="city-pills">
+        <span class="city-pill">🇿🇦 Johannesburg</span>
+        <span class="city-pill">🇿🇦 Cape Town</span>
+        <span class="city-pill">🇿🇲 Lusaka</span>
+        <span class="city-pill">🇧🇼 Gaborone</span>
+        <span class="city-pill">🇰🇪 Nairobi</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATEGORIES ================= -->
+<section class="categories">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Browse by category</span>
+      <h2>Whatever kind of stay you need</h2>
+      <p>From a night in Victoria Falls to a full academic year near campus — HomeLink covers every kind of stay.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><path d="M8 22L24 8l16 14" stroke="#1E4FD6" stroke-width="3" stroke-linecap="round"/><path d="M12 20v16a2 2 0 002 2h20a2 2 0 002-2V20" stroke="#1E4FD6" stroke-width="3"/></svg>
+        <h5>Houses</h5>
+      </div>
+      <div class="cat-card">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><rect x="10" y="8" width="20" height="34" rx="2" stroke="#1E4FD6" stroke-width="3"/><rect x="15" y="14" width="4" height="4" fill="#1E4FD6"/><rect x="23" y="14" width="4" height="4" fill="#1E4FD6"/><rect x="15" y="22" width="4" height="4" fill="#1E4FD6"/><rect x="23" y="22" width="4" height="4" fill="#1E4FD6"/><rect x="17" y="32" width="6" height="10" fill="#1E4FD6"/></svg>
+        <h5>Apartments</h5>
+      </div>
+      <div class="cat-card">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><rect x="6" y="18" width="36" height="22" rx="2" stroke="#1E4FD6" stroke-width="3"/><path d="M6 18l6-10h24l6 10" stroke="#1E4FD6" stroke-width="3" stroke-linejoin="round"/><rect x="21" y="28" width="6" height="12" fill="#1E4FD6"/></svg>
+        <h5>Hotels</h5>
+      </div>
+      <div class="cat-card">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><path d="M24 6l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" stroke="#1E4FD6" stroke-width="3" stroke-linejoin="round"/></svg>
+        <h5>Student Housing</h5>
+      </div>
+      <div class="cat-card">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><path d="M4 32c4-6 8-6 12 0s8 6 12 0 8-6 12 0 4 6 4 6" stroke="#1E4FD6" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="14" r="7" stroke="#1E4FD6" stroke-width="3"/></svg>
+        <h5>Holiday Homes</h5>
+      </div>
+      <div class="cat-card">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><path d="M6 40L24 10l18 30z" stroke="#1E4FD6" stroke-width="3" stroke-linejoin="round"/><path d="M18 40v-8h12v8" stroke="#1E4FD6" stroke-width="3"/></svg>
+        <h5>Lodges</h5>
+      </div>
+      <div class="cat-card">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><path d="M8 24L24 10l16 14" stroke="#1E4FD6" stroke-width="3" stroke-linecap="round"/><rect x="12" y="22" width="24" height="18" rx="2" stroke="#1E4FD6" stroke-width="3"/><path d="M20 40v-8h8v8" stroke="#1E4FD6" stroke-width="3"/></svg>
+        <h5>Villas</h5>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURED PROPERTIES ================= -->
+<section class="featured" id="featured">
+  <div class="container">
+    <div class="featured-head">
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="eyebrow">Featured properties</span>
+        <h2>Handpicked & verified this week</h2>
+      </div>
+      <div class="filter-chips">
+        <span class="chip active">All</span>
+        <span class="chip">Houses</span>
+        <span class="chip">Apartments</span>
+        <span class="chip">Hotels</span>
+        <span class="chip">Student</span>
+      </div>
+    </div>
+
+    <div class="prop-grid">
+      <!-- Card 1 - House -->
+      <div class="prop-card" data-category="Houses">
+        <div class="prop-media">
+          <span class="prop-verified">✓ Verified</span>
+          <button class="prop-save" aria-label="Save">
+            <svg class="save-outline" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z" stroke="white" stroke-width="2"/></svg>
+            <svg class="save-fill" width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z"/></svg>
+          </button>
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80" alt="Borrowdale house">
+        </div>
+        <div class="prop-body">
+          <div class="prop-top"><h4>Modern 4-Bed Family Home</h4><div class="prop-rating">★ 4.9</div></div>
+          <div class="prop-loc">Borrowdale, Harare</div>
+          <div class="prop-meta">
+            <span>🛏 4 Beds</span><span>🛁 3 Baths</span><span>📶 Wi-Fi</span><span>🚗 Parking</span>
+          </div>
+          <div class="prop-foot">
+            <div class="prop-price">$650<span>/month</span></div>
+            <div class="prop-cta">View →</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 - Apartment -->
+      <div class="prop-card" data-category="Apartments">
+        <div class="prop-media">
+          <span class="prop-verified">✓ Verified</span>
+          <button class="prop-save" aria-label="Save">
+            <svg class="save-outline" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z" stroke="white" stroke-width="2"/></svg>
+            <svg class="save-fill" width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z"/></svg>
+          </button>
+          <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=700&q=80" alt="Avondale apartment">
+        </div>
+        <div class="prop-body">
+          <div class="prop-top"><h4>Serviced City Apartment</h4><div class="prop-rating">★ 4.7</div></div>
+          <div class="prop-loc">Avondale, Harare</div>
+          <div class="prop-meta">
+            <span>🛏 2 Beds</span><span>🛁 1 Bath</span><span>💧 Water 24/7</span><span>⚡ Backup Power</span>
+          </div>
+          <div class="prop-foot">
+            <div class="prop-price">$45<span>/night</span></div>
+            <div class="prop-cta">View →</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 - Hotel -->
+      <div class="prop-card" data-category="Hotels">
+        <div class="prop-media">
+          <span class="prop-verified">✓ Verified</span>
+          <span class="prop-source">Also on Airbnb</span>
+          <button class="prop-save" aria-label="Save">
+            <svg class="save-outline" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z" stroke="white" stroke-width="2"/></svg>
+            <svg class="save-fill" width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z"/></svg>
+          </button>
+          <img src="https://images.unsplash.com/photo-1518733057094-95b53143d2a7?auto=format&fit=crop&w=700&q=80" alt="Victoria Falls lodge">
+        </div>
+        <div class="prop-body">
+          <div class="prop-top"><h4>Riverside Lodge & Deck</h4><div class="prop-rating">★ 5.0</div></div>
+          <div class="prop-loc">Victoria Falls</div>
+          <div class="prop-meta">
+            <span>🛏 3 Beds</span><span>🛁 2 Baths</span><span>📶 Wi-Fi</span><span>🏊 Pool</span>
+          </div>
+          <div class="prop-foot">
+            <div class="prop-price">$120<span>/night</span></div>
+            <div class="prop-cta">View →</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 4 - Hotel -->
+      <div class="prop-card" data-category="Hotels">
+        <div class="prop-media">
+          <span class="prop-verified">✓ Verified</span>
+          <button class="prop-save" aria-label="Save">
+            <svg class="save-outline" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z" stroke="white" stroke-width="2"/></svg>
+            <svg class="save-fill" width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z"/></svg>
+          </button>
+          <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=700&q=80" alt="Bulawayo hotel">
+        </div>
+        <div class="prop-body">
+          <div class="prop-top"><h4>Bulawayo Central Hotel</h4><div class="prop-rating">★ 4.6</div></div>
+          <div class="prop-loc">Bulawayo CBD</div>
+          <div class="prop-meta">
+            <span>🛏 1 King Bed</span><span>🍳 Breakfast</span><span>📶 Wi-Fi</span><span>🚗 Parking</span>
+          </div>
+          <div class="prop-foot">
+            <div class="prop-price">$68<span>/night</span></div>
+            <div class="prop-cta">View →</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 5 - Student -->
+      <div class="prop-card" data-category="Student">
+        <div class="prop-media">
+          <span class="prop-verified">✓ Verified</span>
+          <button class="prop-save" aria-label="Save">
+            <svg class="save-outline" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z" stroke="white" stroke-width="2"/></svg>
+            <svg class="save-fill" width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z"/></svg>
+          </button>
+          <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80" alt="Student housing">
+        </div>
+        <div class="prop-body">
+          <div class="prop-top"><h4>Student Studio near UZ</h4><div class="prop-rating">★ 4.8</div></div>
+          <div class="prop-loc">Mount Pleasant, Harare</div>
+          <div class="prop-meta">
+            <span>🛏 1 Bed</span><span>📶 Wi-Fi</span><span>🔒 Secure Gate</span><span>🍽 Shared Kitchen</span>
+          </div>
+          <div class="prop-foot">
+            <div class="prop-price">$180<span>/month</span></div>
+            <div class="prop-cta">View →</div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 6 - House -->
+      <div class="prop-card" data-category="Houses">
+        <div class="prop-media">
+          <span class="prop-verified">✓ Verified</span>
+          <span class="prop-source">Also on Airbnb</span>
+          <button class="prop-save" aria-label="Save">
+            <svg class="save-outline" width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z" stroke="white" stroke-width="2"/></svg>
+            <svg class="save-fill" width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M12 21s-7.5-4.7-10-9.2C.4 8 2 4 6 4c2.2 0 3.8 1.2 6 4 2.2-2.8 3.8-4 6-4 4 0 5.6 4 4 7.8C19.5 16.3 12 21 12 21z"/></svg>
+          </button>
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=700&q=80" alt="Kariba villa">
+        </div>
+        <div class="prop-body">
+          <div class="prop-top"><h4>Lakeview Villa & Jetty</h4><div class="prop-rating">★ 4.9</div></div>
+          <div class="prop-loc">Kariba</div>
+          <div class="prop-meta">
+            <span>🛏 5 Beds</span><span>🛁 4 Baths</span><span>⛵ Private Jetty</span><span>🏊 Pool</span>
+          </div>
+          <div class="prop-foot">
+            <div class="prop-price">$240<span>/night</span></div>
+            <div class="prop-cta">View →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view-all-wrap"><a href="#" class="btn btn-dark" id="viewAllBtn">View all properties</a></div>
+  </div>
+</section>
+
+<!-- ================= WHY CHOOSE ================= -->
+<section class="why">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" style="color:#7DA0FF;">Why HomeLink</span>
+      <h2>Built to remove the guesswork</h2>
+      <p>Every home is checked by a real person before it goes live — not just a filled-in form.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-4z" stroke="white" stroke-width="2.2" stroke-linejoin="round"/></svg></div>
+        <h4>Verified listings</h4>
+        <p>Every property is inspected and confirmed by our local team before it's published — no fake listings, no ghost landlords.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="white" stroke-width="2.2"/><path d="M8 10V7a4 4 0 018 0v3" stroke="white" stroke-width="2.2"/></svg></div>
+        <h4>Secure booking</h4>
+        <p>Messages and bookings stay inside HomeLink, with secure payments arriving soon — no cash handed over blind.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="white" stroke-width="2.2"/><path d="M12 7v5l3.5 2" stroke="white" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+        <h4>Real-time availability</h4>
+        <p>Calendars sync live, so what you see is what's actually open — no double-bookings, no disappointment.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 20v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="white" stroke-width="2.2" stroke-linecap="round"/><circle cx="10" cy="7" r="4" stroke="white" stroke-width="2.2"/><path d="M22 20v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8" stroke="white" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+        <h4>Trusted community</h4>
+        <p>Landlords and tenants review each other after every stay, building a track record you can actually check.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text">
+        <span class="eyebrow">About HomeLink</span>
+        <h2 style="font-size:clamp(26px,3.2vw,38px); margin-bottom:14px;">We help people find homes they can trust across Zimbabwe</h2>
+        <p class="lead">HomeLink is Zimbabwe's first fully verified housing marketplace. Every listing on our platform is checked by a real person before it goes live — so tenants, travellers and students can book with confidence.</p>
+        <p>Founded with a simple mission: remove the fear of scams, ghost listings and fake landlords from the housing search. We partner with local property owners, agencies and student accommodation providers to bring you homes that are exactly as described.</p>
+        <p>From city apartments in Harare to safari lodges in Victoria Falls, from student studios near UZ to family homes in Bulawayo — HomeLink connects you to verified stays, everywhere in Zimbabwe. Africa is next.</p>
+        <div class="about-stats">
+          <div class="about-stat"><b>4,180+</b><span>Verified listings</span></div>
+          <div class="about-stat"><b>12,600+</b><span>Happy guests</span></div>
+          <div class="about-stat"><b>98%</b><span>Satisfaction rate</span></div>
+        </div>
+      </div>
+      <div class="student-media" style="height:100%;">
+        <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=900&q=80" alt="HomeLink team" style="height:100%; min-height:400px;">
+        <div class="float-card">
+          <div>
+            <div style="font-weight:700; font-size:14px;">HomeLink Team</div>
+            <div style="font-size:12.5px; color:var(--gray-text-light);">Built in Zimbabwe, for Africa</div>
+          </div>
+          <div style="font-weight:800; color:var(--blue);">❤</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-team">
+      <h3>Meet the team</h3>
+      <p>The people building HomeLink for Zimbabwe and beyond.</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar"><img src="https://media.licdn.com/dms/image/v2/D4D35AQHUAiaXUscoHg/profile-framedphoto-shrink_800_800/B4DZ7RoeTfKcAY-/0/1781633508977?e=1784109600&v=beta&t=HBhwTQ8mD779zDgosv9bBD3KGPuzc8Jy305eWXh9q_I" alt="Bright Moyo"></div>
+          <h4>Bright Moyo</h4>
+          <div class="role">Founder & CEO</div>
+          <div class="team-desc">Finance expert and tech co-founder building Zimbabwe's first verified housing marketplace.</div>
+          <div class="social">
+            <a href="https://linkedin.com/in/bright-moyo-8728b83ab" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><img src="https://media.licdn.com/dms/image/v2/D4D03AQFN8rhL-gbdXg/profile-displayphoto-crop_800_800/B4DZ33.m8SHoAI-/0/1777981888362?e=1785369600&v=beta&t=R2DpthebII0YznQfK--YVvcQwnsKBsAyZro5XQvq1Q8" alt="Sindiso Zathu"></div>
+          <h4>Sindiso Zathu</h4>
+          <div class="role">Digital Marketer</div>
+          <div class="team-desc">Entrepreneur and digital marketing specialist driving brand growth and community engagement across Zimbabwe.</div>
+          <div class="social">
+            <a href="https://linkedin.com/in/sindiso-zathu-24894a3b1" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><img src="https://media.licdn.com/dms/image/v2/D4D03AQHYHiSKEWLDaA/profile-displayphoto-crop_800_800/B4DZ6XYR3dIsAQ-/0/1780656185522?e=1785369600&v=beta&t=kP6iDKW951tsJbqxxqYd0z2wbQzSvzGl3CtIPGCyiy8" alt="Praise Mukunga"></div>
+          <h4>Praise Mukunga</h4>
+          <div class="role">Lead Digital Marketer</div>
+          <div class="team-desc">Founder of SchoolFinder and certified digital marketing instructor at Uncommon.org. Content creator and social media strategist.</div>
+          <div class="social">
+            <a href="https://linkedin.com/in/praise-mukunga-7b190b350" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><img src="https://media.licdn.com/dms/image/v2/D4E03AQGuJs3IVXx4iA/profile-displayphoto-crop_800_800/B4EZ8DGDr5HsAM-/0/1782463349697?e=1785369600&v=beta&t=OEBoPkiOgraAXrOMdTYilGnR3SHUZogQWhpTy7bF-hE" alt="Emmanuel Dube"></div>
+          <h4>Emmanuel Dube</h4>
+          <div class="role">Product Designer</div>
+          <div class="team-desc">Architectural designer (BArch, NUST) crafting intuitive user experiences and visual identity for HomeLink.</div>
+          <div class="social">
+            <a href="https://linkedin.com/in/emmanuel-m-dube-03463a3b3" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MAP ================= -->
+<section class="map-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Explore on the map</span>
+      <h2>See what's verified, near you</h2>
+      <p>Filter by price, type and bedrooms to find verified homes across Zimbabwe.</p>
+    </div>
+    <div class="map-wrap">
+      <div class="map-sidebar">
+        <h3>Filters</h3>
+        <p>4,180 verified listings currently live</p>
+
+        <div class="filter-group">
+          <h6>Price range (USD / month)</h6>
+          <div class="price-range"></div>
+          <div class="price-labels"><span>$80</span><span>$1,200+</span></div>
+        </div>
+
+        <div class="filter-group">
+          <h6>Property type</h6>
+          <div class="filter-row">Houses <div class="toggle on"></div></div>
+          <div class="filter-row">Apartments <div class="toggle on"></div></div>
+          <div class="filter-row">Hotels <div class="toggle"></div></div>
+          <div class="filter-row">Student Housing <div class="toggle"></div></div>
+        </div>
+
+        <div class="filter-group">
+          <h6>Bedrooms</h6>
+          <div class="filter-chips">
+            <span class="chip active">Any</span><span class="chip">1</span><span class="chip">2</span><span class="chip">3+</span>
+          </div>
+        </div>
+      </div>
+      <div class="map-canvas" id="map"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPLORE ZIMBABWE ================= -->
+<section class="explore">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Explore Zimbabwe</span>
+      <h2>Stay somewhere, then go see everything</h2>
+      <p>Book a verified stay near the places worth the trip.</p>
+    </div>
+    <div class="explore-grid">
+      <div class="explore-card"><img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=900&q=80" alt="Victoria Falls"><div class="explore-label">Victoria Falls</div></div>
+      <div class="explore-card"><img src="https://images.unsplash.com/photo-1547970810-dc1eac37d174?auto=format&fit=crop&w=700&q=80" alt="Hwange"><div class="explore-label">Hwange National Park</div></div>
+      <div class="explore-card"><img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=700&q=80" alt="Mana Pools"><div class="explore-label">Mana Pools</div></div>
+      <div class="explore-card"><img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=80" alt="Nyanga"><div class="explore-label">Nyanga Highlands</div></div>
+      <div class="explore-card"><img src="https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=700&q=80" alt="Great Zimbabwe"><div class="explore-label">Great Zimbabwe Ruins</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STUDENT HOUSING ================= -->
+<section class="student" id="student">
+  <div class="container student-inner">
+    <div>
+      <span class="eyebrow">Student accommodation</span>
+      <h2 style="font-size:clamp(26px,3.2vw,38px); margin-bottom:14px;">A safe place to stay, close to campus</h2>
+      <p style="color:var(--gray-text); font-size:15.5px; line-height:1.6;">Verified rooms and studios within reach of Zimbabwe's leading universities — secure, affordable, and checked before listing.</p>
+      <div class="uni-list">
+        <div class="uni-row"><div class="uni-name">🎓 University of Zimbabwe</div><div class="uni-tag">210 listings</div></div>
+        <div class="uni-row"><div class="uni-name">🎓 NUST</div><div class="uni-tag">140 listings</div></div>
+        <div class="uni-row"><div class="uni-name">🎓 Midlands State University</div><div class="uni-tag">95 listings</div></div>
+        <div class="uni-row"><div class="uni-name">🎓 Chinhoyi University of Technology</div><div class="uni-tag">62 listings</div></div>
+        <div class="uni-row"><div class="uni-name">🎓 Lupane State University</div><div class="uni-tag">38 listings</div></div>
+      </div>
+      <a href="#" class="btn btn-primary" style="margin-top:26px;">Browse student housing</a>
+    </div>
+    <div class="student-media">
+      <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=900&q=80" alt="Student housing">
+      <div class="float-card">
+        <div>
+          <div style="font-weight:700; font-size:14px;">Studio near UZ</div>
+          <div style="font-size:12.5px; color:var(--gray-text-light);">Mount Pleasant, Harare</div>
+        </div>
+        <div style="font-weight:800;">$180<span style="font-size:11px;font-weight:500;color:var(--gray-text-light);">/mo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BECOME A HOST ================= -->
+<section class="host-cta" id="host">
+  <div class="container">
+    <div class="host-banner">
+      <div>
+        <h2>List your property. Reach verified guests across Zimbabwe.</h2>
+        <p>Whether you manage one flat or a whole hotel, HomeLink gives you a dashboard for bookings, messages and payouts — all in one place.</p>
+        <a href="#" class="btn btn-white">Become a host</a>
+        <div class="host-stats">
+          <div><b>4,180+</b><span>Verified listings</span></div>
+          <div><b>12,600+</b><span>Happy guests</span></div>
+          <div><b>98%</b><span>Host satisfaction</span></div>
+        </div>
+      </div>
+      <svg width="220" height="220" viewBox="0 0 100 100" fill="none" style="flex-shrink:0; opacity:.9;">
+        <path d="M12 46L50 14L88 46" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M24 40V78C24 80 26 82 28 82H72C74 82 76 80 76 78V40" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="30" y="56" width="30" height="20" rx="10" fill="none" stroke="white" stroke-width="5" opacity=".55"/>
+        <rect x="46" y="56" width="30" height="20" rx="10" fill="none" stroke="white" stroke-width="5"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section class="reviews">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What people say</span>
+      <h2>Trusted by tenants, landlords & agencies</h2>
+    </div>
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"I found a verified flat in Avondale within two days, and everything matched what was listed. No scams, no surprises."</p>
+        <div class="review-person"><div class="avatar">TM</div><div><div class="name">Tendai M.</div><div class="role">Tenant, Harare</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Listing my three properties took an afternoon, and the verification badge alone brought in serious enquiries."</p>
+        <div class="review-person"><div class="avatar">RC</div><div><div class="name">Rutendo C.</div><div class="role">Landlord, Bulawayo</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Our agency moved its Victoria Falls portfolio onto HomeLink and bookings from serious guests picked up immediately."</p>
+        <div class="review-person"><div class="avatar">NP</div><div><div class="name">Nyasha P.</div><div class="role">Real Estate Agency</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APP PROMO ================= -->
+<section class="app-promo">
+  <div class="container app-inner">
+    <div class="app-text">
+      <span class="eyebrow" style="color:#7DA0FF;">Coming soon</span>
+      <h2>HomeLink, right in your pocket</h2>
+      <p>Search, message hosts and manage bookings on the go. The HomeLink app is launching soon on Android and iPhone.</p>
+      <div class="store-btns">
+        <div class="store-btn"><span>🍎</span><div><small>Download on the</small><b>App Store</b></div></div>
+        <div class="store-btn"><span>▶</span><div><small>Get it on</small><b>Google Play</b></div></div>
+      </div>
+    </div>
+    <div class="qr-box">
+      <svg width="100%" height="100%" viewBox="0 0 100 100"><rect width="100" height="100" fill="white"/>
+        <rect x="8" y="8" width="24" height="24" fill="#0C0E14"/><rect x="14" y="14" width="12" height="12" fill="white"/><rect x="18" y="18" width="4" height="4" fill="#0C0E14"/>
+        <rect x="68" y="8" width="24" height="24" fill="#0C0E14"/><rect x="74" y="14" width="12" height="12" fill="white"/><rect x="78" y="18" width="4" height="4" fill="#0C0E14"/>
+        <rect x="8" y="68" width="24" height="24" fill="#0C0E14"/><rect x="14" y="74" width="12" height="12" fill="white"/><rect x="18" y="78" width="4" height="4" fill="#0C0E14"/>
+        <rect x="40" y="8" width="6" height="6" fill="#0C0E14"/><rect x="50" y="8" width="6" height="6" fill="#0C0E14"/>
+        <rect x="40" y="40" width="6" height="6" fill="#0C0E14"/><rect x="50" y="40" width="6" height="6" fill="#0C0E14"/><rect x="60" y="50" width="6" height="6" fill="#0C0E14"/>
+        <rect x="40" y="60" width="6" height="6" fill="#0C0E14"/><rect x="50" y="70" width="6" height="6" fill="#0C0E14"/><rect x="70" y="60" width="6" height="6" fill="#0C0E14"/>
+        <rect x="80" y="80" width="12" height="12" fill="#0C0E14"/><rect x="60" y="80" width="6" height="6" fill="#0C0E14"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEWSLETTER ================= -->
+<section class="newsletter">
+  <div class="container news-inner">
+    <span class="eyebrow">Stay in the loop</span>
+    <h2 style="font-size:clamp(24px,2.8vw,32px);">Get new verified listings in your inbox</h2>
+    <p style="color:var(--gray-text); margin-top:10px;">Weekly picks across Zimbabwe — no spam, unsubscribe any time.</p>
+    <div class="news-form">
+      <input type="email" placeholder="you@email.com">
+      <button class="btn btn-primary">Subscribe</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MODAL ================= -->
+<div class="modal-overlay">
+  <div class="modal">
+    <img class="modal-img" src="" alt="">
+    <div class="modal-body">
+      <div class="modal-head">
+        <h2></h2>
+        <button class="modal-close" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-rating"></div>
+      <div class="modal-loc"></div>
+      <div class="modal-meta"></div>
+      <p class="modal-desc"></p>
+      <div class="modal-price"></div>
+      <div class="modal-actions">
+        <button class="btn btn-primary">Contact host</button>
+        <button class="btn-outline">Save to wishlist</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CONTACT HOST MODAL ================= -->
+<div class="contact-modal-overlay">
+  <div class="contact-modal">
+    <div class="contact-modal-head">
+      <h3>Contact host</h3>
+      <button class="modal-close contact-close" aria-label="Close">✕</button>
+    </div>
+    <div class="contact-modal-body">
+      <div class="contact-host-card">
+        <div class="contact-host-avatar">TM</div>
+        <div class="contact-host-info">
+          <h4>Tendai Mukanya</h4>
+          <p>Host since 2024 · <span>★ 4.9</span></p>
+        </div>
+      </div>
+      <div class="contact-form" id="contactForm">
+        <input type="text" placeholder="Your name" value="Tafadzwa Gumbo" disabled>
+        <input type="email" placeholder="Your email" value="tafadzwa@example.com" disabled>
+        <textarea placeholder="Hi Tendai, I'm interested in your property. Is it still available? I'd love to arrange a viewing."></textarea>
+        <button class="btn btn-primary" type="button" id="sendMessageBtn">Send message</button>
+      </div>
+      <div class="contact-success" id="contactSuccess">
+        <div class="check">✓</div>
+        <h4>Message sent!</h4>
+        <p>Your message has been sent to Tendai. You'll get a reply within 24 hours.</p>
+        <button class="btn btn-dark" style="margin-top:16px;" id="contactDoneBtn">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= HOST REGISTER MODAL ================= -->
+<div class="host-reg-overlay" id="hostRegOverlay">
+  <div class="host-reg-modal">
+    <div class="host-reg-head">
+      <h3>Register as a host</h3>
+      <button class="modal-close" id="hostRegClose" aria-label="Close">✕</button>
+    </div>
+    <div class="host-reg-body">
+      <p class="lead">Fill in your details and our team will get back to you within 24 hours to verify and activate your listing.</p>
+      <div class="host-reg-form" id="hostRegForm">
+        <div class="form-row">
+          <div><label>First name</label><input type="text" placeholder="Tendai" value="Tendai"></div>
+          <div><label>Last name</label><input type="text" placeholder="Mukanya" value="Mukanya"></div>
+        </div>
+        <div>
+          <label>Email address</label>
+          <input type="email" placeholder="tendai@example.com" value="tendai@example.com">
+        </div>
+        <div>
+          <label>Phone number</label>
+          <input type="tel" placeholder="+263 77 000 0000" value="+263 77 123 4567">
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Property type</label>
+            <select>
+              <option>House</option>
+              <option selected>Apartment</option>
+              <option>Hotel / Lodge</option>
+              <option>Student accommodation</option>
+              <option>Holiday home</option>
+            </select>
+          </div>
+          <div>
+            <label>City / Town</label>
+            <select>
+              <option>Harare</option>
+              <option>Bulawayo</option>
+              <option selected>Victoria Falls</option>
+              <option>Nyanga</option>
+              <option>Kariba</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label>Property name or address</label>
+          <input type="text" placeholder="e.g. Riverside Lodge" value="Riverside Lodge & Deck">
+        </div>
+        <div>
+          <label>Tell us about your property</label>
+          <textarea placeholder="Describe your property, number of units, amenities, etc.">Beautiful riverside property near Victoria Falls with pool, deck, and 3 bedrooms.</textarea>
+        </div>
+        <button class="btn btn-primary" type="button" id="hostRegSubmit">Submit registration</button>
+      </div>
+      <div class="host-reg-success" id="hostRegSuccess">
+        <div class="check">✓</div>
+        <h4>Registration submitted!</h4>
+        <p>Thank you for registering as a host. Our team will review your details and contact you within 24 hours to activate your listing.</p>
+        <p style="font-size:12px; color:var(--gray-text-light);">A confirmation has been sent to tendai@example.com</p>
+        <button class="btn btn-dark" style="margin-top:16px;" id="hostRegDone">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TOAST ================= -->
+<div class="toast" id="toast"></div>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <svg width="30" height="30" viewBox="0 0 100 100" fill="none">
+            <path d="M12 46L50 14L88 46" stroke="#3A6BEB" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M24 40V78C24 80 26 82 28 82H72C74 82 76 80 76 78V40" stroke="#3A6BEB" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="30" y="56" width="30" height="20" rx="10" fill="none" stroke="#3A6BEB" stroke-width="7"/>
+            <rect x="46" y="56" width="30" height="20" rx="10" fill="none" stroke="white" stroke-width="7"/>
+          </svg>
+          <span style="color:#fff;">Home<span style="color:#8FA8F5;">Link</span></span>
+        </a>
+        <p>Find verified homes. Stay with confidence. Zimbabwe's trusted housing marketplace, built for Africa.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="X">x</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h6>Company</h6>
+        <a href="#">About</a><a href="#">Careers</a><a href="#">Blog</a><a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h6>Support</h6>
+        <a href="#">Help Centre</a><a href="#">FAQs</a><a href="#">Safety</a><a href="#">Trust & Verification</a>
+      </div>
+      <div class="footer-col">
+        <h6>Hosting</h6>
+        <a href="#">Become a Host</a><a href="#">Host Resources</a><a href="#">Pricing</a><a href="#">Host Dashboard</a>
+      </div>
+      <div class="footer-col">
+        <h6>Contact</h6>
+        <a href="tel:+263774765928">📞 +263 774 765 928</a>
+        <a href="mailto:homelink411@gmail.com">✉ homelink411@gmail.com</a>
+        <a href="#">Victoria Falls, Zimbabwe</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 HomeLink. All rights reserved.</span>
+      <span style="display:flex; gap:18px;"><a href="#">Privacy Policy</a><a href="#">Terms & Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>
