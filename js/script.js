@@ -499,6 +499,8 @@ document.addEventListener('DOMContentLoaded', () => {
       closeModal();
       closeContactModal();
       closeHostReg();
+      closeSignin();
+      closeRegister();
     }
   });
 
@@ -641,6 +643,93 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (hostRegDone) hostRegDone.addEventListener('click', closeHostReg);
+
+  // ---- Auth Modals (Sign In / Register) ----
+  const signinOverlay = document.getElementById('signinOverlay');
+  const signinClose = document.getElementById('signinClose');
+  const signinForm = document.getElementById('signinForm');
+  const signinSubmit = document.getElementById('signinSubmit');
+  const signinSuccess = document.getElementById('signinSuccess');
+  const signinDone = document.getElementById('signinDone');
+
+  const registerOverlay = document.getElementById('registerOverlay');
+  const registerClose = document.getElementById('registerClose');
+  const registerForm = document.getElementById('registerForm');
+  const registerSubmit = document.getElementById('registerSubmit');
+  const registerSuccess = document.getElementById('registerSuccess');
+  const registerDone = document.getElementById('registerDone');
+
+  const switchToRegister = document.getElementById('switchToRegister');
+  const switchToSignin = document.getElementById('switchToSignin');
+
+  function openSignin() {
+    if (!signinOverlay) return;
+    closeRegister();
+    signinOverlay.classList.add('active');
+    if (signinForm) signinForm.style.display = '';
+    if (signinSuccess) signinSuccess.classList.remove('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSignin() {
+    if (!signinOverlay) return;
+    signinOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function openRegister() {
+    if (!registerOverlay) return;
+    closeSignin();
+    registerOverlay.classList.add('active');
+    if (registerForm) registerForm.style.display = '';
+    if (registerSuccess) registerSuccess.classList.remove('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeRegister() {
+    if (!registerOverlay) return;
+    registerOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[href="#signin"]').forEach(link => {
+    link.addEventListener('click', e => { e.preventDefault(); openSignin(); });
+  });
+
+  document.querySelectorAll('[href="#register"]').forEach(link => {
+    link.addEventListener('click', e => { e.preventDefault(); openRegister(); });
+  });
+
+  if (signinClose) signinClose.addEventListener('click', closeSignin);
+  if (signinOverlay) signinOverlay.addEventListener('click', e => { if (e.target === signinOverlay) closeSignin(); });
+
+  if (registerClose) registerClose.addEventListener('click', closeRegister);
+  if (registerOverlay) registerOverlay.addEventListener('click', e => { if (e.target === registerOverlay) closeRegister(); });
+
+  if (signinSubmit) {
+    signinSubmit.addEventListener('click', () => {
+      if (signinForm) signinForm.style.display = 'none';
+      if (signinSuccess) signinSuccess.classList.add('show');
+    });
+  }
+
+  if (signinDone) signinDone.addEventListener('click', closeSignin);
+
+  if (registerSubmit) {
+    registerSubmit.addEventListener('click', () => {
+      if (registerForm) registerForm.style.display = 'none';
+      if (registerSuccess) registerSuccess.classList.add('show');
+    });
+  }
+
+  if (registerDone) registerDone.addEventListener('click', closeRegister);
+
+  if (switchToRegister) switchToRegister.addEventListener('click', e => { e.preventDefault(); closeSignin(); openRegister(); });
+  if (switchToSignin) switchToSignin.addEventListener('click', e => { e.preventDefault(); closeRegister(); openSignin(); });
+
+  // Close auth modals on Escape
+  const origKeydown = document._keydownHandler;
+  // (already handled below)
 
   // ---- Smooth scroll ----
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {

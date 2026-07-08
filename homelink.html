@@ -59,8 +59,8 @@
           </div>
         </button>
         <div class="profile-dropdown">
-          <a href="#">Sign In</a>
-          <a href="#">Register</a>
+          <a href="#signin">Sign In</a>
+          <a href="#register">Register</a>
           <div class="dropdown-divider"></div>
           <a href="#host">Become a Host</a>
           <a href="#">Help Centre</a>
@@ -99,8 +99,8 @@
     <a href="#student">Student</a>
     <a href="#about">About</a>
     <a href="#host">Become a Host</a>
-    <a href="#">Sign In</a>
-    <a href="#">Register</a>
+    <a href="#signin">Sign In</a>
+    <a href="#register">Register</a>
   </div>
 </div>
 
@@ -791,6 +791,85 @@
         <p style="font-size:12px; color:var(--gray-text-light);">A confirmation has been sent to tendai@example.com</p>
         <button class="btn btn-dark" style="margin-top:16px;" id="hostRegDone">Done</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= SIGN IN MODAL ================= -->
+<div class="auth-overlay" id="signinOverlay">
+  <div class="auth-modal">
+    <div class="auth-head">
+      <h3>Welcome back</h3>
+      <button class="modal-close auth-close" id="signinClose" aria-label="Close">✕</button>
+    </div>
+    <div class="auth-body">
+      <div class="auth-form" id="signinForm">
+        <div>
+          <label>Email</label>
+          <input type="email" placeholder="you@example.com" value="tadzwa@homelink.co.zw">
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" placeholder="Enter your password" value="••••••••">
+        </div>
+        <div class="auth-row">
+          <label class="auth-checkbox"><input type="checkbox" checked> <span>Remember me</span></label>
+          <a href="#" class="auth-link">Forgot password?</a>
+        </div>
+        <button class="btn btn-primary" type="button" id="signinSubmit">Sign in</button>
+      </div>
+      <div class="auth-success" id="signinSuccess">
+        <div class="check">✓</div>
+        <h4>Signed in!</h4>
+        <p>Welcome back, Tafadzwa. You're now signed in to your HomeLink account.</p>
+        <button class="btn btn-dark" style="margin-top:16px;" id="signinDone">Done</button>
+      </div>
+      <p class="auth-switch">Don't have an account? <a href="#" id="switchToRegister">Register</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= REGISTER MODAL ================= -->
+<div class="auth-overlay" id="registerOverlay">
+  <div class="auth-modal">
+    <div class="auth-head">
+      <h3>Create an account</h3>
+      <button class="modal-close auth-close" id="registerClose" aria-label="Close">✕</button>
+    </div>
+    <div class="auth-body">
+      <div class="auth-form" id="registerForm">
+        <div class="auth-row-2">
+          <div>
+            <label>First name</label>
+            <input type="text" placeholder="Tafadzwa" value="Tafadzwa">
+          </div>
+          <div>
+            <label>Last name</label>
+            <input type="text" placeholder="Gumbo" value="Gumbo">
+          </div>
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" placeholder="you@example.com" value="tafadzwa@example.com">
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" placeholder="Create a password" value="demo1234">
+        </div>
+        <div>
+          <label>Confirm password</label>
+          <input type="password" placeholder="Repeat your password" value="demo1234">
+        </div>
+        <label class="auth-checkbox"><input type="checkbox" checked> <span>I agree to the <a href="#" class="auth-link">Terms & Privacy Policy</a></span></label>
+        <button class="btn btn-primary" type="button" id="registerSubmit">Create account</button>
+      </div>
+      <div class="auth-success" id="registerSuccess">
+        <div class="check">✓</div>
+        <h4>Account created!</h4>
+        <p>Welcome to HomeLink! Your account has been created successfully. Start exploring verified properties across Zimbabwe.</p>
+        <button class="btn btn-dark" style="margin-top:16px;" id="registerDone">Done</button>
+      </div>
+      <p class="auth-switch">Already have an account? <a href="#" id="switchToSignin">Sign in</a></p>
     </div>
   </div>
 </div>
